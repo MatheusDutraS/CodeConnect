@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="stylesheet" href="./styles/PaginaDeLogin.css" />
+    <link rel="stylesheet" href="./styles/CampoDeDigitacao.css" />
+    <title>Login | CodeConnect</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"
+      integrity="sha512-8Q6Y9XnTbOE+JNvjBQwJ2H8S+UV4uA6hiRykhdtIyDYZ2TprdNmWOUaKdGzOhyr4dCyk287OejbPvwl7lrfqrQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"
+      integrity="sha512-MOCpqoRoisCTwJ8vQQiciZv0qcpROCidek3GTFS6KTk2+y7munJIlKCVkFCYY+p3ErYFXCjmFjnfTTRSC1OHWQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.4/babel.min.js"
+      integrity="sha512-YpL+cyxeD6yi05xXUGpdeHyf7F4LFthEdJvNFp0kGSTssHu0M7kWxVQTZ6jD7s5z5cbibg6JpleJrO2wOKd0YA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/babel">
+      function Titulo({ children }) {
+        return <h1 className="form__titulo">{children}</h1>;
+      }
+
+      function Subtitulo({ children }) {
+        return <h2 className="form__texto">{children}</h2>;
+      }
+
+      function CampoDeDigitacao({ label, placeholder, tipo, value, setValor }) {
+        return (
+          <div className="form__campo-digitacao">
+            <label for={tipo}>{label}</label>
+            <input
+              type={tipo}
+              id={tipo}
+              placeholder={placeholder}
+              onChange={(evento) => setValor(evento.target.value)}
+              required
+            />
+          </div>
+        );
+      }
+
+      function Botao({ children }) {
+        return (
+          <button className="form__botao" type="submit">
+            {children}
+          </button>
+        );
+      }
+
+      function CheckBox() {
+        return (
+          <>
+            <div className="form__campo-checkbox">
+              <input type="Checkbox" id="lembrar" />
+              <label for="lembrar"></label>
+            </div>
+            <p className="form__opcoes-texto">Lembrar-me</p>
+          </>
+        );
+      }
+
+      function Texto({ classe, children }) {
+        return <p className={classe}>{children}</p>;
+      }
+
+      function ItemRedesSocias({ link, nome }) {
+        return (
+          <li>
+            <a href={link}>
+              <img src={`./img/${nome}.svg`} alt={`Ícone do ${nome}`} />
+              {nome}
+            </a>
+          </li>
+        );
+      }
+
+      function Link({ children }) {
+        return (
+          <a className="container-links__link" href="#">
+            {children}
+          </a>
+        );
+      }
+
+      function PaginaDeLogin() {
+        const [email, setEmail] = React.useState("");
+        const [senha, setSenha] = React.useState("");
+
+        const handleSubmit = (evento) => {
+          evento.preventDefault();
+          console.log("email: " + email);
+          console.log("senha: " + senha);
+        };
+
+        return (
+          <div className="container-login">
+            <img
+              src="./img/imagem-login.png"
+              alt="Uma mulher negra de cabelos crespos usando óculos utilizando um computador, também a logo do CodeConnect"
+            />
+            <section>
+              <form onSubmit={handleSubmit}>
+                <Titulo>Login</Titulo>
+                <Subtitulo>Boas-vindas! Faça seu login.</Subtitulo>
+                <CampoDeDigitacao
+                  label="Email ou usuario"
+                  placeholder="Digite o seu email ou usuario"
+                  tipo={"email"}
+                  setValor={setEmail}
+                />
+                <CampoDeDigitacao
+                  label="Senha"
+                  placeholder="Digite sua senha"
+                  tipo={"password"}
+                  setValor={setSenha}
+                />
+                <fieldset className="form__opcoes">
+                  <CheckBox />
+                  <p>
+                    <a href="#" aria-label="Recuper senha esquecida">
+                      Esqueci a senha
+                    </a>
+                  </p>
+                </fieldset>
+                <Botao>Login</Botao>
+                <div className="container-links">
+                  <Texto classe="container-links__titulo">
+                    ou entre com outras contas
+                  </Texto>
+                  <ul>
+                    <ItemRedesSocias
+                      link="https://www.github.com"
+                      nome="GitHub"
+                    />
+                    <ItemRedesSocias
+                      link="https://www.google.com"
+                      nome="Google"
+                    />
+                  </ul>
+                  <Texto classe="container-links__texto">
+                    Ainda não tem conta?
+                  </Texto>
+                  <Link>Crie seu cadastro</Link>
+                </div>
+              </form>
+            </section>
+          </div>
+        );
+      }
+      ReactDOM.createRoot(document.getElementById("root")).render(
+        <PaginaDeLogin />
+      );
+    </script>
+  </body>
+</html>
+
+<!-- <div className="form__campo-digitacao">
+    <label for="password">Senha</label>
+    <input
+      type="password"
+      id="password"
+      placeholder="Digite sua senha"
+      required
+    />
+  </div> -->
